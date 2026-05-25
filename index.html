@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deadly Inspection | Terminal 2047</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* --- AMBIANCE POST-APO POUR L'ACCUEIL --- */
+        body {
+            background: linear-gradient(rgba(0, 15, 0, 0.8), rgba(0, 5, 0, 0.9)), 
+                        url('site.jpg') no-repeat center center fixed;
+            background-size: cover;
+            /* Effet de balayage lignes (vieux moniteur) */
+            position: relative;
+        }
+
+        body::before {
+            content: " ";
+            display: block;
+            position: fixed;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
+            background-size: 100% 4px;
+            z-index: 2000;
+            pointer-events: none;
+        }
+
+        .container {
+            border: 1px solid rgba(0, 255, 65, 0.2);
+            background: rgba(0, 10, 0, 0.6);
+            padding: 40px;
+            backdrop-filter: blur(3px);
+            position: relative;
+        }
+
+        /* Petites infos de décor post-apo */
+        .system-status {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 0.7rem;
+            color: var(--primary);
+            text-transform: uppercase;
+            opacity: 0.6;
+        }
+
+        .gps-coords {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            font-size: 0.7rem;
+            color: var(--primary);
+            opacity: 0.6;
+        }
+
+        /* On s'assure que les boutons collent à la nouvelle DA */
+        .btn-apocalypse {
+            background: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            margin: 10px;
+            padding: 15px;
+            text-decoration: none;
+            display: block;
+            transition: all 0.3s;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        .btn-apocalypse:hover {
+            background: var(--primary);
+            color: #000;
+            box-shadow: 0 0 15px var(--primary);
+        }
+    </style>
+</head>
+<body>
+    <div class="overlay"></div>
+    
+    <main class="container">
+        <div class="system-status">SYSTÈME: OPÉRATIONNEL // RÉSEAU: LOCAL_ONLY</div>
+        
+        <header>
+            <h1 class="glitch" data-text="DEADLY INSPECTION">DEADLY INSPECTION</h1>
+            <p class="subtitle">Rapport d'inspection #402 — Zone Contaminée</p>
+        </header>
+
+        <nav class="menu">
+            <a href="gameplay.html" class="btn-apocalypse">COMMENCER L'INSPECTION</a>
+            <a href="archives.html" class="btn-apocalypse">ARCHIVES LOCALES</a>
+            <a href="menaces.html" class="btn-apocalypse">ANALYSE DES MENACES</a> 
+            <a href="telechargement.html" class="btn-apocalypse">UNITÉ DE TRANSFERT</a>
+            <a href="credit.html" class="btn-apocalypse">ÉQUIPE D'INSPECTION</a>
+            <a href="survie.html" class="btn-apocalypse">RESTER EN VIE</a>
+        </nav>
+
+        <div class="gps-coords">LOC: 48.8566° N, 2.3522° E // ALT: 35m</div>
+    </main>
+</body>
+</html>

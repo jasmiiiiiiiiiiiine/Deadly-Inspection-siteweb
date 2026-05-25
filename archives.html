@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deadly Inspection | Archives Récupérées</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* --- NOUVELLE DA : TERMINAL POST-APOCALYPTIQUE --- */
+        
+        body {
+            /* On utilise ton image, mais on la rend plus sombre et granuleuse */
+            background: linear-gradient(rgba(0, 20, 0, 0.8), rgba(0, 10, 0, 0.9)), 
+                        url('site.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #00ff41; /* Vert matrice/phosphore */
+            font-family: 'Courier New', Courier, monospace; /* Police machine à écrire */
+            text-shadow: 0 0 5px rgba(0, 255, 65, 0.7); /* Effet néon/phosphore */
+        }
+
+        /* L'effet de balayage ligne par ligne des vieux écrans */
+        body::before {
+            content: " ";
+            display: block;
+            position: fixed;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
+            background-size: 100% 4px;
+            z-index: 2000;
+            pointer-events: none;
+        }
+
+        h1 {
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            border-bottom: 2px solid #00ff41;
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+            color: #00ff41;
+        }
+
+        .archive-box {
+            background: rgba(0, 10, 0, 0.95); /* Fond presque noir, très sombre */
+            border: 1px solid #00ff41; /* Bordure fine verte */
+            padding: 30px;
+            margin: 20px auto;
+            max-width: 800px;
+            text-align: left;
+            box-shadow: 0 0 15px rgba(0, 255, 65, 0.2);
+        }
+
+        .dossier-perso {
+            border: 1px solid rgba(0, 255, 65, 0.3); /* Cadre discret autour de chaque perso */
+            background: rgba(0, 20, 0, 0.5);
+            padding: 20px;
+            margin-bottom: 30px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Titre du personnage comme un entête de fichier */
+        .dossier-perso h3 {
+            background: #00ff41;
+            color: #001400; /* Texte noir sur fond vert */
+            padding: 5px 10px;
+            margin-top: 0;
+            text-transform: uppercase;
+            font-size: 1.1rem;
+            display: inline-block;
+        }
+
+        .dossier-perso p {
+            margin: 10px 0;
+            line-height: 1.4;
+            color: rgba(0, 255, 65, 0.9); /* Vert légèrement moins saturé pour le corps */
+        }
+
+        .dossier-perso strong {
+            color: #00ff41; /* Mots-clés en vert vif */
+            text-transform: uppercase;
+            font-size: 0.9rem;
+        }
+
+        /* Style pour les photos : Intégrées comme des scans basse résolution */
+        .photo-profil {
+            width: 130px;
+            height: 130px;
+            object-fit: cover;
+            border: 1px solid #00ff41;
+            float: left;
+            margin-right: 20px;
+            margin-bottom: 10px;
+            filter: sepia(1) hue-rotate(60deg) saturate(2) brightness(0.8); /* Effet "scan vert" */
+            opacity: 0.8;
+        }
+
+        /* Le bouton de retour, lui aussi stylisé terminal */
+        .btn-terminal {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            border: 1px solid #00ff41;
+            color: #00ff41;
+            text-decoration: none;
+            text-transform: uppercase;
+            transition: all 0.3s;
+        }
+
+        .btn-terminal:hover {
+            background: #00ff41;
+            color: #001400;
+            box-shadow: 0 0 10px #00ff41;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="overlay"></div>
+    <main class="container">
+        <h1>&gt; ACCÈS_ARCHIVES :: DISQUE_DUR_RÉCUPÉRÉ</h1>
+
+        <div class="archive-box">
+            
+            <div class="dossier-perso">
+                <img src="bob.png" alt="[IMAGE_CORRODÉE]" class="photo-profil">
+                <h3>ID: BOB_UNIT-01 | Statut: ACTIF</h3>
+                <p><strong>Âge :</strong> 51 cycles cycles standard</p>
+                <p><strong>Ancien métier :</strong> Agent de sécurité [Secteur Civil]</p>
+                <p><strong>Profil :</strong> Sujet robuste. Psychologie marquée par un traumatisme sévère. Seul garant identifié de la l'intégrité de la Base.</p>
+                <p><strong>Tragédie :</strong> Perte confirmée de l'unité familiale [Femme/Fille] lors de l'Événement Z.</p>
+                <p><strong>Directive Principale :</strong> Assurer la survie du cluster humain isolé. Localiser vecteur de soin [Vaccin].</p>
+            </div>
+
+            <div class="dossier-perso">
+                <img src="eliott.png" alt="[IMAGE_ALTÉRÉE]" class="photo-profil">
+                <h3>ID: ELIOTT_UNIT-02 | Statut: ACTIF</h3>
+                <p><strong>Âge :</strong> 30 cycles cycles standard</p>
+                <p><strong>Ancien métier :</strong> Chercheur en biologie [Niveau 4]</p>
+                <p><strong>Profil :</strong> Analyse critique. Indispensable aux opérations techniques et structurelles. Recherche active d'une solution virologique.</p>
+                <p><strong>Tragédie :</strong> Perte de la fiancée et du géniteur lors de la Panique Initiale.</p>
+                <p><strong>Directive Principale :</strong> Synthétiser un antidote. Restaurer l'ordre biologique.</p>
+            </div>
+
+            <div style="text-align: center;">
+                <a href="index.html" class="btn-terminal">&lt;-- RETOUR_TERMINAL_PRINCIPAL</a>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

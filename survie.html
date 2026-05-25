@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deadly Inspection | Protocole de Survie</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* --- DA SURVIE : TERMINAL D'ALERTE ROUGE --- */
+        
+        body {
+            /* Fond sombre avec ton image site.jpg */
+            background: linear-gradient(rgba(20, 0, 0, 0.8), rgba(10, 0, 0, 0.9)), 
+                        url('site.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #ff3333; /* Rouge néon/alerte */
+            font-family: 'Courier New', Courier, monospace;
+            text-shadow: 0 0 8px rgba(255, 51, 51, 0.6);
+        }
+
+        /* Effet de balayage lignes (vieux moniteur) */
+        body::before {
+            content: " ";
+            display: block;
+            position: fixed;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.3) 50%);
+            background-size: 100% 4px;
+            z-index: 2000;
+            pointer-events: none;
+        }
+
+        .survival-box {
+            background: rgba(10, 0, 0, 0.95); /* Fond ultra sombre */
+            border: 1px solid #ff3333; /* Bordure rouge fine */
+            padding: 30px;
+            margin: 20px auto;
+            max-width: 800px;
+            text-align: left;
+            box-shadow: 0 0 20px rgba(255, 51, 51, 0.2);
+        }
+
+        h1 {
+            color: #ff3333;
+            text-transform: uppercase;
+            border-bottom: 2px solid #ff3333;
+            padding-bottom: 10px;
+            letter-spacing: 2px;
+        }
+
+        .alerte-header {
+            background: #ff3333;
+            color: #1a0000; /* Texte sombre sur fond rouge */
+            padding: 5px 15px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .instruction {
+            border: 1px solid rgba(255, 51, 51, 0.3);
+            background: rgba(40, 0, 0, 0.3);
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+
+        .instruction h2 {
+            margin-top: 0;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            color: #ff3333;
+        }
+
+        .instruction p, .instruction li {
+            color: rgba(255, 80, 80, 0.9); /* Rouge plus doux pour la lecture */
+            line-height: 1.5;
+        }
+
+        strong {
+            color: #ff3333;
+            text-decoration: underline;
+        }
+
+        .btn-terminal-red {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 25px;
+            border: 1px solid #ff3333;
+            color: #ff3333;
+            text-decoration: none;
+            text-transform: uppercase;
+            transition: all 0.3s;
+        }
+
+        .btn-terminal-red:hover {
+            background: #ff3333;
+            color: #1a0000;
+            box-shadow: 0 0 15px #ff3333;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="overlay"></div>
+    <main class="container">
+        <div class="survival-box">
+            <div class="alerte-header">ALERTE : PROTOCOLE D'INSPECTION #2047</div>
+            <h1>MANUEL DE SURVIE DU DOUANIER</h1>
+            
+            <div class="instruction">
+                <h2>I. Identification des Sujets</h2>
+                <p>Chaque individu doit être soumis à un scan obligatoire. <strong>Interdiction formelle</strong> de laisser entrer tout sujet présentant :</p>
+                <ul>
+                    <li>Une température corporelle inférieure à 35.2°C.</li>
+                    <li>Des pupilles fixes ou injectées de sang.</li>
+                    <li>Des spasmes musculaires incontrôlés.</li>
+                </ul>
+            </div>
+
+            <div class="instruction">
+                <h2>II. Sécurité de la Structure</h2>
+                <p>La base repose sur votre vigilance. En cas de brèche, Bob est autorisé à utiliser la force létale. Eliott doit être protégé à tout prix : il est notre seul espoir de vaccin.</p>
+            </div>
+
+            <div class="instruction">
+                <h2>III. La Menace Intérieure</h2>
+                <p>Si un zombie pénètre l'enceinte, le taux de contamination monte de manière exponentielle. <strong>Triez avec soin</strong> : un seul oubli signifie la fin de la colonie.</p>
+            </div>
+
+            <div style="text-align: center;">
+                <a href="index.html" class="btn-terminal-red">&lt; REVENIR AU MENU PRINCIPAL</a>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,102 @@
+/* --- CONFIGURATION DES CARTES --- */
+.team-grid {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 50px;
+}
+
+.card {
+    background-color: transparent;
+    width: 220px;
+    height: 300px;
+    perspective: 1000px; /* Effet 3D */
+}
+
+.card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+    cursor: pointer;
+}
+
+.card:hover .card-inner {
+    transform: rotateY(180deg);
+}
+
+.card-front, .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden; /* Cache le dos pendant la rotation */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #00ff41;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* --- RECTO (Face) --- */
+.card-front {
+    background: rgba(0, 15, 0, 0.9);
+    color: #00ff41;
+}
+
+.status-light {
+    width: 10px;
+    height: 10px;
+    background: #00ff41;
+    border-radius: 50%;
+    margin-bottom: 20px;
+    box-shadow: 0 0 10px #00ff41;
+    animation: blink 1.5s infinite;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+}
+
+.role-tag {
+    margin-top: 15px;
+    font-size: 0.8rem;
+    border: 1px solid #00ff41;
+    padding: 5px 10px;
+    text-transform: uppercase;
+}
+
+/* --- VERSO (Dos) --- */
+.card-back {
+    background: #00ff41; /* Inversion de couleur */
+    color: #000;
+    transform: rotateY(180deg);
+}
+
+.card-back h3 {
+    border-bottom: 2px solid #000;
+    margin-bottom: 10px;
+}
+
+/* --- BOUTON RETOUR --- */
+.btn-terminal-return {
+    display: inline-block;
+    padding: 10px 20px;
+    border: 1px solid #00ff41;
+    color: #00ff41;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-family: 'Courier New', Courier, monospace;
+    transition: 0.3s;
+}
+
+.btn-terminal-return:hover {
+    background: #00ff41;
+    color: #000;
+    box-shadow: 0 0 20px rgba(0, 255, 65, 0.5);
+}

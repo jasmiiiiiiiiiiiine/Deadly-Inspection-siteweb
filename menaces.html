@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deadly Inspection | Analyse des Menaces</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            background: linear-gradient(rgba(0, 20, 0, 0.85), rgba(0, 10, 0, 0.95)), 
+                        url('site.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #00ff41;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        body::before {
+            content: " ";
+            display: block;
+            position: fixed;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.2) 50%);
+            background-size: 100% 4px;
+            z-index: 2000;
+            pointer-events: none;
+        }
+
+        .threat-container {
+            background: rgba(0, 10, 0, 0.9);
+            border: 1px solid #00ff41;
+            padding: 30px;
+            margin: 40px auto;
+            max-width: 800px;
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.1);
+        }
+
+        .threat-entry {
+            border: 1px solid rgba(0, 255, 65, 0.3);
+            padding: 15px;
+            margin-bottom: 20px;
+            background: rgba(0, 255, 65, 0.05);
+        }
+
+        .threat-entry h2 {
+            color: #00ff41;
+            margin-top: 0;
+            text-transform: uppercase;
+            border-bottom: 1px solid #00ff41;
+        }
+
+        .danger-level {
+            color: #000;
+            background: #00ff41;
+            padding: 2px 8px;
+            font-weight: bold;
+            font-size: 0.8rem;
+        }
+
+        .btn-terminal {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            border: 1px solid #00ff41;
+            color: #00ff41;
+            text-decoration: none;
+            text-transform: uppercase;
+        }
+
+        .btn-terminal:hover {
+            background: #00ff41;
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+    <div class="overlay"></div>
+    <main class="threat-container">
+        <h1>> BASE_DE_DONNÉES_BIOLOGIQUES</h1>
+        <p style="font-size: 0.8rem; opacity: 0.7; margin-bottom: 30px;">Dernière mise à jour par Eliott : 14/02/2047</p>
+
+        <div class="threat-entry">
+            <h2>LE RÔDEUR (Standard) <span class="danger-level">DANGER: BAS</span></h2>
+            <p><strong>Description :</strong> Sujet récemment infecté. Ressemble encore à un humain mais ne cligne plus des yeux.</p>
+            <p><strong>Signe distinctif :</strong> Température corporelle chutant à 34°C. Démarche lente.</p>
+        </div>
+
+        <div class="threat-entry">
+            <h2>L'ASPHYXIÉ <span class="danger-level">DANGER: MOYEN</span></h2>
+            <p><strong>Description :</strong> Infecté dont les poumons ont muté. Expulse un gaz toxique à la mort.</p>
+            <p><strong>Signe distinctif :</strong> Veines bleues apparentes sur le cou et le visage.</p>
+        </div>
+
+        <div class="threat-entry">
+            <h2>LE "SILENCIEUX" <span class="danger-level">DANGER: CRITIQUE</span></h2>
+            <p><strong>Description :</strong> Le plus dangereux pour la douane. Garde une apparence humaine parfaite pendant 2 minutes avant la mutation.</p>
+            <p><strong>Signe distinctif :</strong> Rythme cardiaque indétectable au scanner thermique.</p>
+        </div>
+
+        <div style="text-align: center;">
+            <a href="index.html" class="btn-terminal">RETOUR_TERMINAL</a>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deadly Inspection | Ordres de Mission</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* --- DA GAMEPLAY : INTERFACE DE MISSION --- */
+        body {
+            background: linear-gradient(rgba(0, 20, 0, 0.85), rgba(0, 10, 0, 0.95)), 
+                        url('site.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #00ff41;
+            font-family: 'Courier New', Courier, monospace;
+            text-shadow: 0 0 5px rgba(0, 255, 65, 0.5);
+        }
+
+        /* L'effet de balayage écran cathodique */
+        body::before {
+            content: " ";
+            display: block;
+            position: fixed;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.2) 50%);
+            background-size: 100% 4px;
+            z-index: 2000;
+            pointer-events: none;
+        }
+
+        .mission-container {
+            background: rgba(0, 10, 0, 0.9);
+            border: 1px solid #00ff41;
+            padding: 40px;
+            margin: 40px auto;
+            max-width: 850px;
+            text-align: left;
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.1);
+        }
+
+        .mission-header {
+            border-bottom: 1px solid #00ff41;
+            margin-bottom: 30px;
+            padding-bottom: 10px;
+        }
+
+        .mission-header h1 {
+            font-size: 1.8rem;
+            margin: 0;
+            letter-spacing: 4px;
+        }
+
+        .status-bar {
+            background: #00ff41;
+            color: #000;
+            padding: 5px 10px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            background: rgba(0, 255, 65, 0.1);
+            padding: 5px 10px;
+            display: inline-block;
+        }
+
+        .story-block {
+            line-height: 1.6;
+            margin-bottom: 30px;
+            border-left: 2px solid #00ff41;
+            padding-left: 20px;
+        }
+
+        .objective-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .objective-list li::before {
+            content: "[ ] ";
+            color: #00ff41;
+        }
+
+        .btn-action {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 15px 30px;
+            border: 1px solid #00ff41;
+            color: #00ff41;
+            text-decoration: none;
+            text-transform: uppercase;
+            transition: 0.3s;
+            font-weight: bold;
+        }
+
+        .btn-action:hover {
+            background: #00ff41;
+            color: #000;
+            box-shadow: 0 0 20px #00ff41;
+        }
+
+        .footer-nav {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="overlay"></div>
+    <main class="mission-container">
+        <div class="mission-header">
+            <div class="status-bar">ORDRE DE MISSION #001 - "DOUANE_SANGUINE"</div>
+            <h1>SYNOPSIS DU SYSTÈME</h1>
+        </div>
+
+        <section class="story-block">
+            <h2>CONTEXTE : 2047</h2>
+            <p>Le monde tel que nous le connaissions n'est plus qu'un écho de statique. Suite à une épidémie foudroyante, les rares survivants se sont retranchés dans des complexes isolés. Vous êtes l'inspecteur de la Porte 402.</p>
+        </section>
+
+        <section class="story-block">
+            <h2>VOTRE RÔLE : LE DOUANIER</h2>
+            <p>Votre tâche est simple mais vitale : filtrer. Chaque minute, des individus se présentent à la grille. Certains sont sains, d'autres cachent leurs morsures. Une seule erreur, et la base tombe.</p>
+        </section>
+
+        <section class="story-block">
+            <h2>OBJECTIFS PRIORITAIRES</h2>
+            <ul class="objective-list">
+                <li>Scanner chaque individu (Température & Pupilles).</li>
+                <li>Gérer les ressources énergétiques du bunker avec Bob.</li>
+                <li>Fournir les échantillons nécessaires à Eliott pour le vaccin.</li>
+            </ul>
+        </section>
+
+        <div class="footer-nav">
+            <a href="index.html" class="btn-action">RETOUR AU TERMINAL PRINCIPAL</a>
+        </div>
+    </main>
+</body>
+</html>
