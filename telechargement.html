@@ -7,11 +7,18 @@
     <link rel="stylesheet" href="style.css">
     <style>
         body {
-            background: linear-gradient(rgba(0, 20, 0, 0.85), rgba(0, 10, 0, 0.95)), 
+            background: linear-gradient(rgba(0, 20, 0, 0.85), rgba(0, 10, 0, 0.95)),
                         url('site.jpg') no-repeat center center fixed;
             background-size: cover;
             color: #00ff41;
             font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            height: auto;
+            min-height: 100vh;
+            overflow-y: auto;
         }
 
         body::before {
@@ -31,71 +38,437 @@
             padding: 40px;
             margin: 40px auto;
             max-width: 700px;
+            width: 90%;
             text-align: center;
             box-shadow: 0 0 25px rgba(0, 255, 65, 0.2);
+            position: relative;
+            z-index: 5;
+        }
+
+        .transfer-container h1 {
+            font-size: 1.4rem;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
         }
 
         .download-card {
             border: 1px dashed #00ff41;
-            padding: 20px;
+            padding: 25px 20px;
             margin-bottom: 30px;
-            background: rgba(0, 255, 65, 0.05);
-            transition: 0.3s;
+            background: rgba(0, 255, 65, 0.03);
+            transition: background 0.3s, box-shadow 0.3s;
         }
 
         .download-card:hover {
-            background: rgba(0, 255, 65, 0.1);
+            background: rgba(0, 255, 65, 0.08);
+            box-shadow: inset 0 0 20px rgba(0, 255, 65, 0.05);
+        }
+
+        .download-card h2 {
+            font-size: 1rem;
+            border-bottom: 1px solid rgba(0, 255, 65, 0.4);
+            padding-bottom: 10px;
+            margin-bottom: 12px;
         }
 
         .file-info {
-            font-size: 0.8rem;
-            opacity: 0.7;
-            margin-top: 5px;
+            font-size: 0.75rem;
+            opacity: 0.6;
+            margin-top: 6px;
+            letter-spacing: 1px;
         }
 
+        /* ─── BOUTON DOWNLOAD ─── */
         .btn-download {
             display: inline-block;
-            margin-top: 15px;
-            padding: 10px 25px;
+            margin-top: 18px;
+            padding: 12px 30px;
             background: #00ff41;
             color: #000;
             text-decoration: none;
             font-weight: bold;
+            font-family: 'Courier New', monospace;
             text-transform: uppercase;
-            box-shadow: 0 0 10px #00ff41;
+            letter-spacing: 2px;
+            font-size: 0.9rem;
+            box-shadow: 0 0 12px rgba(0, 255, 65, 0.6);
+            cursor: pointer;
+            border: none;
+            position: relative;
+            overflow: hidden;
+            transition: box-shadow 0.3s;
+        }
+
+        .btn-download::before {
+            content: '';
+            position: absolute;
+            top: -100%;
+            left: -60%;
+            width: 40%;
+            height: 300%;
+            background: rgba(255, 255, 255, 0.25);
+            transform: skewX(-20deg);
+            transition: left 0.4s ease;
+        }
+
+        .btn-download:hover::before {
+            left: 160%;
         }
 
         .btn-download:hover {
-            background: #fff;
-            box-shadow: 0 0 20px #fff;
+            box-shadow: 0 0 30px rgba(0, 255, 65, 0.9), 0 0 60px rgba(0, 255, 65, 0.4);
         }
 
-        h2 { border-bottom: 1px solid #00ff41; padding-bottom: 10px; }
+        .btn-download:active {
+            transform: scale(0.97);
+        }
+
+        /* ─── OVERLAY DE TRANSFERT ─── */
+        #transfer-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 5, 0, 0.97);
+            z-index: 9000;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #transfer-overlay.active {
+            display: flex;
+            animation: overlay-in 0.3s ease forwards;
+        }
+
+        @keyframes overlay-in {
+            from { opacity: 0; }
+            to   { opacity: 1; }
+        }
+
+        /* Canvas pluie binaire */
+        #binary-canvas {
+            position: absolute;
+            inset: 0;
+            opacity: 0.18;
+        }
+
+        .transfer-box {
+            position: relative;
+            z-index: 10;
+            width: min(540px, 90vw);
+            border: 1px solid #00ff41;
+            background: rgba(0, 12, 0, 0.98);
+            padding: 36px 32px 30px;
+            box-shadow: 0 0 40px rgba(0, 255, 65, 0.3);
+            text-align: left;
+        }
+
+        .transfer-title {
+            font-size: 1rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+            text-align: center;
+            animation: blink-text 1s step-start infinite;
+        }
+
+        @keyframes blink-text {
+            50% { opacity: 0.5; }
+        }
+
+        /* Log terminal */
+        #log-output {
+            font-size: 0.75rem;
+            opacity: 0.75;
+            min-height: 100px;
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+
+        #log-output .log-line {
+            display: block;
+            overflow: hidden;
+            white-space: nowrap;
+            animation: type-in 0.25s steps(40, end) forwards;
+        }
+
+        @keyframes type-in {
+            from { max-width: 0; }
+            to   { max-width: 100%; }
+        }
+
+        /* Barre de progression */
+        .progress-label {
+            font-size: 0.7rem;
+            opacity: 0.6;
+            margin-bottom: 6px;
+            letter-spacing: 1px;
+        }
+
+        .progress-track {
+            width: 100%;
+            height: 14px;
+            border: 1px solid #00ff41;
+            background: rgba(0, 255, 65, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 0%;
+            background: #00ff41;
+            box-shadow: 0 0 10px #00ff41;
+            transition: width 0.12s linear;
+            position: relative;
+        }
+
+        /* Scanline sur la barre */
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 0;
+            height: 100%;
+            width: 20px;
+            background: rgba(255,255,255,0.35);
+            filter: blur(4px);
+        }
+
+        #progress-percent {
+            font-size: 0.8rem;
+            margin-top: 8px;
+            text-align: right;
+            letter-spacing: 1px;
+        }
+
+        .transfer-done {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            display: none;
+        }
+
+        .transfer-done.show {
+            display: block;
+            animation: flicker 0.4s ease;
+        }
+
+        @keyframes flicker {
+            0%   { opacity: 0; }
+            20%  { opacity: 1; }
+            40%  { opacity: 0; }
+            60%  { opacity: 1; }
+            80%  { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        /* ─── NAV ─── */
+        .back-link {
+            display: block;
+            margin-top: 30px;
+            color: #00ff41;
+            text-decoration: none;
+            font-size: 0.85rem;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+        }
+        .back-link:hover { opacity: 1; }
     </style>
 </head>
 <body>
     <div class="overlay"></div>
+
     <main class="transfer-container">
         <h1>&gt; UNITÉ_DE_TRANSFERT_SÉCURISÉE</h1>
-        <p style="margin-bottom: 40px;">Extraction des fichiers sources et documents officiels...</p>
+        <p style="margin-bottom: 40px; font-size: 0.85rem; opacity: 0.7;">
+            Extraction des fichiers sources et documents officiels...
+        </p>
 
         <div class="download-card">
             <h2>LOGICIEL : DEADLY INSPECTION (V1.0)</h2>
-            <p>Archive complète incluant les assets et l'exécutable.</p>
-            <div class="file-info">FORMAT: .ZIP | TAILLE: 145 MB</div>
-            <a href="#" class="btn-download" target="_blank">TÉLÉCHARGER LE JEU</a>
+            <p style="font-size:0.88rem;">Archive complète incluant les assets et l'exécutable.</p>
+            <div class="file-info">FORMAT: .RAR &nbsp;|&nbsp; FICHIER: USB_DeadlyInspection.rar</div>
+            <button class="btn-download" onclick="startTransfer('USB_DeadlyInspection.rar')">
+                ⬇ TÉLÉCHARGER LE JEU
+            </button>
         </div>
 
         <div class="download-card">
             <h2>RAPPORT_DE_SOUTENANCE_FINAL.PDF</h2>
-            <p>Analyse technique, choix artistiques et compte-rendu d'équipe.</p>
-            <div class="file-info">FORMAT: .PDF | TAILLE: 4.2 MB</div>
-            <a href="rapport.pdf" class="btn-download" download>LIRE LE RAPPORT</a>
+            <p style="font-size:0.88rem;">Analyse technique, choix artistiques et compte-rendu d'équipe.</p>
+            <div class="file-info">FORMAT: .PDF &nbsp;|&nbsp; TAILLE: 4.2 MB</div>
+            <a href="rapport.pdf" class="btn-download" download>⬇ LIRE LE RAPPORT</a>
         </div>
 
-        <div style="margin-top: 40px;">
-            <a href="index.html" style="color: #00ff41; text-decoration: none;">[ RETOUR AU TERMINAL ]</a>
-        </div>
+        <a href="index.html" class="back-link">[ RETOUR AU TERMINAL ]</a>
     </main>
+
+    <!-- ─── OVERLAY ANIMATION DE TRANSFERT ─── -->
+    <div id="transfer-overlay">
+        <canvas id="binary-canvas"></canvas>
+
+        <div class="transfer-box">
+            <div class="transfer-title">// TRANSFERT DE DONNÉES EN COURS //</div>
+
+            <div id="log-output"></div>
+
+            <div class="progress-label">PROGRESSION DU TRANSFERT</div>
+            <div class="progress-track">
+                <div class="progress-fill" id="progress-fill"></div>
+            </div>
+            <div id="progress-percent">0%</div>
+
+            <div class="transfer-done" id="transfer-done">
+                ✓ TRANSFERT TERMINÉ — INITIALISATION DU TÉLÉCHARGEMENT...
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /* ── Pluie binaire sur le canvas ── */
+        const canvas = document.getElementById('binary-canvas');
+        const ctx    = canvas.getContext('2d');
+        let cols, drops;
+
+        function initCanvas() {
+            canvas.width  = window.innerWidth;
+            canvas.height = window.innerHeight;
+            cols  = Math.floor(canvas.width / 16);
+            drops = Array(cols).fill(1);
+        }
+
+        function drawRain() {
+            ctx.fillStyle = 'rgba(0, 5, 0, 0.06)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#00ff41';
+            ctx.font = '13px Courier New';
+            drops.forEach((y, i) => {
+                const char = Math.random() > 0.5 ? '1' : '0';
+                ctx.fillText(char, i * 16, y * 16);
+                if (y * 16 > canvas.height && Math.random() > 0.975) drops[i] = 0;
+                drops[i]++;
+            });
+        }
+
+        let rainInterval = null;
+
+        window.addEventListener('resize', () => {
+            initCanvas();
+        });
+
+        /* ── Séquence de logs ── */
+        const LOG_LINES = [
+            '> Authentification du terminal... OK',
+            '> Vérification de l\'intégrité du fichier...',
+            '> Clé de déchiffrement : [██████████] VALIDE',
+            '> Connexion au serveur sécurisé... ÉTABLIE',
+            '> Décompression des secteurs contaminés...',
+            '> Segment A : données récupérées',
+            '> Segment B : fichiers assets extraits',
+            '> Segment C : exécutable reconstruit',
+            '> Finalisation du paquet de transfert...',
+        ];
+
+        function addLog(text, delay) {
+            return new Promise(resolve => {
+                setTimeout(() => {
+                    const log = document.getElementById('log-output');
+                    const line = document.createElement('span');
+                    line.className = 'log-line';
+                    line.textContent = text;
+                    log.appendChild(line);
+                    log.scrollTop = log.scrollHeight;
+                    resolve();
+                }, delay);
+            });
+        }
+
+        /* ── Barre de progression ── */
+        function animateProgress(targetPct, duration) {
+            return new Promise(resolve => {
+                const fill   = document.getElementById('progress-fill');
+                const label  = document.getElementById('progress-percent');
+                const start  = parseFloat(fill.style.width) || 0;
+                const delta  = targetPct - start;
+                const steps  = Math.ceil(duration / 30);
+                let   step   = 0;
+
+                const id = setInterval(() => {
+                    step++;
+                    const pct = start + delta * (step / steps);
+                    fill.style.width       = pct + '%';
+                    label.textContent      = Math.round(pct) + '%';
+                    if (step >= steps) { clearInterval(id); resolve(); }
+                }, 30);
+            });
+        }
+
+        /* ── Lancement de la séquence complète ── */
+        async function startTransfer(filename) {
+            const overlay = document.getElementById('transfer-overlay');
+            const logOut  = document.getElementById('log-output');
+            const done    = document.getElementById('transfer-done');
+
+            /* Reset */
+            logOut.innerHTML = '';
+            document.getElementById('progress-fill').style.width = '0%';
+            document.getElementById('progress-percent').textContent = '0%';
+            done.classList.remove('show');
+
+            /* Afficher l'overlay + démarrer la pluie */
+            overlay.classList.add('active');
+            initCanvas();
+            rainInterval = setInterval(drawRain, 40);
+
+            /* Logs + progression entrelacés */
+            const timeline = [
+                { log: LOG_LINES[0], t: 0,    pct: 5,  dur: 400 },
+                { log: LOG_LINES[1], t: 500,  pct: 15, dur: 500 },
+                { log: LOG_LINES[2], t: 1100, pct: 28, dur: 600 },
+                { log: LOG_LINES[3], t: 1900, pct: 42, dur: 500 },
+                { log: LOG_LINES[4], t: 2600, pct: 58, dur: 700 },
+                { log: LOG_LINES[5], t: 3500, pct: 70, dur: 400 },
+                { log: LOG_LINES[6], t: 4100, pct: 81, dur: 400 },
+                { log: LOG_LINES[7], t: 4700, pct: 92, dur: 300 },
+                { log: LOG_LINES[8], t: 5200, pct: 100, dur: 500 },
+            ];
+
+            for (const step of timeline) {
+                await addLog(step.log, step.t === timeline[0].t ? 0 : 0);
+                await animateProgress(step.pct, step.dur);
+                if (step !== timeline[timeline.length - 1]) {
+                    await new Promise(r => setTimeout(r, 300));
+                }
+            }
+
+            /* Attendre un tout petit peu, puis déclencher le téléchargement */
+            await new Promise(r => setTimeout(r, 500));
+            done.classList.add('show');
+
+            /* Téléchargement réel */
+            const link = document.createElement('a');
+            link.href     = filename;
+            link.download = filename;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+            /* Fermer l'overlay après 1.5s */
+            await new Promise(r => setTimeout(r, 1500));
+            overlay.classList.remove('active');
+            clearInterval(rainInterval);
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+
+        /* Fermer l'overlay en cliquant hors de la boîte */
+        document.getElementById('transfer-overlay').addEventListener('click', function(e) {
+            if (e.target === this) {
+                this.classList.remove('active');
+                clearInterval(rainInterval);
+            }
+        });
+    </script>
 </body>
 </html>
